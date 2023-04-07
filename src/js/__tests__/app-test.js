@@ -27,16 +27,12 @@ const members = [
   },
 ];
 
-test('should create a new team with members', () => {
+test('should be iterable with for...of', () => {
   const team = new Team(members);
-  expect(team.members).toEqual(members);
-});
-
-test('should return an iterator with members', () => {
-  const team = new Team(members);
-  const iterator = team[Symbol.iterator]();
-  expect(iterator.next()).toEqual({ value: members[0], done: false });
-  expect(iterator.next()).toEqual({ value: members[1], done: false });
-  expect(iterator.next()).toEqual({ value: members[2], done: false });
-  expect(iterator.next()).toEqual({ done: true });
+  let count = 0;
+  for (const member of team) {
+    expect(member).toEqual(members[count]);
+    count += 1;
+  }
+  expect(count).toEqual(members.length);
 });
